@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Résultat de la fréquence cardiaque</title>
-</head>
-<body>
+{%  extends 'layouts/default.html' %}
+
+{%  block body %}
+
     <h1>Résultat de la fréquence cardiaque</h1>
     <p>Âge du patient : {{ age }}</p>
     <p>Niveau d'intensité de l'exercice : {{ intensite_exercice }}</p>
     <p>Fréquence cardiaque maximale : {{ freq_cardiaque_maximale }} bpm</p>
     <p>Fréquence cardiaque cible : {{ freq_cardiaque_cible }} bpm</p>
     <a href="/">Retour au simulateur</a>
-</body>
-</html>
+
+{% endblock body %}      

@@ -80,8 +80,6 @@ def calculate_heart_rate():
     # Si la méthode est GET, affichez simplement le formulaire
     return render_template('pages/heart_rate.html')
 
-
-
 # ----------------------
 
 # Gestionnaire d'erreur 404
