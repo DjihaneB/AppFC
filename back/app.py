@@ -1,11 +1,18 @@
 # https://flask.palletsprojects.com/en/2.3.x/quickstart/#a-minimal-application
-from flask import Flask, render_template
+
+# from flask import Flask, render_template
+from flask import Flask, render_template, request # Importez 'request' pour gérer les requêtes HTTP
 from datetime import datetime
 from mocks import Post
+from flask_sqlalchemy import SQLAlchemy
 
 
 # Créez une instance de l'application Flask
 app = Flask(__name__)
+
+# db = SQLAlchemy(app)
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///back/database/db.sqlite3"
+
 
 # Context processor pour injecter la variable 'now' dans les modèles
 @app.context_processor
@@ -46,6 +53,37 @@ def about():
 def contactus():
     return render_template('pages/contactus.html')
 
+# -----------------
+
+
+# Page de calculate_heart_rate
+@app.route('/calculate_heart_rate', methods=['GET', 'POST'])
+def calculate_heart_rate():
+    if request.method == 'POST':
+        age = int(request.form['age'])
+        intensite_exercice = request.form['intensite_exercice']
+        
+        # Effectuez les calculs de fréquence cardiaque ici
+        freq_cardiaque_maximale = 220 - age
+        if intensite_exercice.lower() == "faible":
+            freq_cardiaque_cible = 0.5 * freq_cardiaque_maximale
+        elif intensite_exercice.lower() == "moyen":
+            freq_cardiaque_cible = 0.7 * freq_cardiaque_maximale
+        elif intensite_exercice.lower() == "élevé":
+            freq_cardiaque_cible = 0.85 * freq_cardiaque_maximale
+        else:
+            return "Niveau d'intensité invalide. Veuillez choisir parmi faible, moyen ou élevé."
+
+        # Passez les résultats à afficher dans le modèle HTML de résultat
+        return render_template('pages/result.html', age=age, intensite_exercice=intensite_exercice, freq_cardiaque_maximale=freq_cardiaque_maximale, freq_cardiaque_cible=freq_cardiaque_cible)
+
+    # Si la méthode est GET, affichez simplement le formulaire
+    return render_template('pages/heart_rate.html')
+
+
+
+# ----------------------
+
 # Gestionnaire d'erreur 404
 @app.errorhandler(404)
 def page_not_found(error):
@@ -66,5 +104,7 @@ def posts_show(id):
 
 # Point d'entrée pour l'exécution de l'application
 if __name__ == '__main__':
-    app.run(debug =True, port =3000)
+    with app.app_context():
+        # db.create_all()
+        app.run(debug =True, port =3000)
     
