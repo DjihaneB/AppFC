@@ -13,6 +13,11 @@ app = Flask(__name__)
 # db = SQLAlchemy(app)
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///back/database/db.sqlite3"
 
+# Context processor pour définir la variable 'title' globalement
+@app.context_processor
+def inject_title():
+    return {'title': 'Default Title'}  # Définissez le titre par défaut ici
+
 
 # Context processor pour injecter la variable 'now' dans les modèles
 @app.context_processor
@@ -41,17 +46,17 @@ def utility_processor():
 # Page d'accueil
 @app.route('/')
 def home():
-    return render_template('pages/home.html')
+    return render_template('pages/home.html', title = "Home")
 
 # Page "À propos"
 @app.route('/about')
 def about():
-    return render_template('pages/about.html')# Ajout de l'extension .html
+    return render_template('pages/about.html', title = "About")# Ajout de l'extension .html
 
 # Page de contact
 @app.route('/contactus')
 def contactus():
-    return render_template('pages/contactus.html')
+    return render_template('pages/contactus.html', title = "Contact")
 
 # -----------------
 
@@ -62,7 +67,6 @@ def calculate_heart_rate():
     if request.method == 'POST':
         age = int(request.form['age'])
         intensite_exercice = request.form['intensite_exercice']
-        
         # Effectuez les calculs de fréquence cardiaque ici
         freq_cardiaque_maximale = 220 - age
         if intensite_exercice.lower() == "faible":
@@ -78,26 +82,28 @@ def calculate_heart_rate():
         return render_template('pages/result.html', age=age, intensite_exercice=intensite_exercice, freq_cardiaque_maximale=freq_cardiaque_maximale, freq_cardiaque_cible=freq_cardiaque_cible)
 
     # Si la méthode est GET, affichez simplement le formulaire
-    return render_template('pages/heart_rate.html')
+    return render_template('pages/heart_rate.html', title = "SimulatorFC")
 
 # ----------------------
 
 # Gestionnaire d'erreur 404
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('errors/404.html'), 404
+    return render_template('errors/404.html', title = "404"
+), 404
 
 # Liste des articles de blog
 @app.route('/blog')
 def posts_index():
+    title="Blog"
     posts= Post.all()
-    return render_template('posts/index.html', posts=posts)
+    return render_template('posts/index.html', posts=posts, title="Blog")
 
 # Affiche un article de blog spécifique '<int:id>'
 @app.route('/index/posts/<int:id>')
 def posts_show(id):
     post = Post.find(id)
-    return render_template('posts/show.html', post=post)
+    return render_template('posts/show.html', post=post, title="Blog")
     
 
 # Point d'entrée pour l'exécution de l'application
