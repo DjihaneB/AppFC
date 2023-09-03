@@ -2,11 +2,15 @@
 
 {%  block body %}
 
-    <h1>Résultat de la fréquence cardiaque</h1>
-    <p>Âge du patient : {{ age }}</p>
-    <p>Niveau d'intensité de l'exercice : {{ intensite_exercice }}</p>
-    <p>Fréquence cardiaque maximale : {{ freq_cardiaque_maximale }} bpm</p>
-    <p>Fréquence cardiaque cible : {{ freq_cardiaque_cible }} bpm</p>
-    <a href="/">Retour au simulateur</a>
+<div class="container mx-auto py-8 mb-4">
+    <h1 class="text-2xl font-semibold mb-4">Résultat de la fréquence cardiaque</h1>
+    <p class="text-lg mb-4">Âge du patient : {{ age }}</p>
+    <p class="text-lg mb-4">Niveau d'intensité de l'exercice : {{ intensite_exercice }}</p>
+    <p class="text-lg mb-4">Fréquence cardiaque maximale : {{ freq_cardiaque_maximale }} bpm</p>
+    <p class="text-lg mb-4">Fréquence cardiaque cible : {{ freq_cardiaque_cible }} bpm</p>
+    <a href="/calculate_heart_rate" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
+        Retour au simulateur
+    </a>
+</div>
 
-{% endblock body %}      
+{% endblock body %}

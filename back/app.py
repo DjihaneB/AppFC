@@ -67,8 +67,16 @@ def calculate_heart_rate():
     if request.method == 'POST':
         age = int(request.form['age'])
         intensite_exercice = request.form['intensite_exercice']
-        # Effectuez les calculs de fréquence cardiaque ici
-        freq_cardiaque_maximale = 220 - age
+        # Calculer la fréquence cardiaque maximale en utilisant la formule en tenant compte du sexe
+        sexe = request.form ['sexe']
+        if sexe.lower() == "femme":
+                freq_cardiaque_maximale = 226 - age
+        elif sexe.lower() == "homme":
+                freq_cardiaque_maximale = 220 - age                   
+            
+        # # Les calculs de fréquence cardiaque
+        # freq_cardiaque_maximale = 220 - age
+
         if intensite_exercice.lower() == "faible":
             freq_cardiaque_cible = 0.5 * freq_cardiaque_maximale
         elif intensite_exercice.lower() == "moyen":
