@@ -1,7 +1,35 @@
 {% extends 'layouts/default.html' %}
 
 {% block body %}
+    
+    <header class="bg-blue-500 text-white py-10 text-center">
+        <h1 class="text-4xl font-bold">Simulateur de Fréquence Cardiaque</h1>
+        <p class="mt-2 text-lg">Contrôlez votre rythme cardiaque</p>
+    </header>
 
-    <h1>Welcome to ACME!</h1>
-    <h3>You can go check our beautful <a href="{{ url_for('posts_index')}}">Blog</a>.</h3>
+    <section class="bg-gray-100 py-10">
+        <div class="container mx-auto  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 ">
+            <div class="p-6 bg-white rounded-lg shadow-lg">
+                <img src="{{ url_for('static', filename='imges/heart-icon.jpg') }}" alt="Icône de cœur" class="mx-auto w-20 m-6">
+                <h2 class="text-xl font-semibold mt-4">Collecte d'Informations</h2>
+                <p class="text-gray-700 mt-2">Fournissez des détails personnels pour une simulation précise.</p>
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-lg ">
+                <img src="{{ url_for('static', filename='imges/graph-icon.jpg') }}" alt="Icône de graphique" class="mx-auto w-20 m-8">
+                <h2 class="text-xl font-semibold mt-10">Simulation en Temps Réel</h2>
+                <p class="text-gray-700 mt-2">Suivez votre fréquence cardiaque en temps réel pendant l'exercice.</p>
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-lg">
+                <img src="{{ url_for('static', filename='imges/calories-icon.jpg') }}" alt="Icône de calories" class="mx-auto w-20 m-8">
+                <h2 class="text-xl font-semibold mt-10">Estimation des Calories Brûlées</h2>
+                <p class="text-gray-700 mt-2">Découvrez combien de calories vous brûlez pendant l'exercice.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-blue-500 py-10 text-center">
+        <h2 class="text-3xl font-semibold text-white">Prêt à commencer ?</h2>
+        <p class="text-lg text-gray-200 mt-2">Utilisez notre simulateur pour optimiser votre séance d'entraînement.</p>
+        <a href="{{ url_for('calculate_heart_rate')}}" class="bg-white hover:bg-gray-200 text-blue-500 font-semibold px-6 py-3 mt-4 inline-block rounded-lg transition duration-300">Commencer la Simulation</a>
+    </section>
 {% endblock body %}
